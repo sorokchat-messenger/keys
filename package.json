@@ -28,7 +28,8 @@
     "@sorokchat-messenger/config": "^1.0.5",
     "dotenv": "^18.0.9",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "uuidv7": "^1.2.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^12.0.0",
