@@ -21,9 +21,7 @@ export class SignedKey {
         return new SignedKey(Id.create(), key.clone(), signature);
     }
 
-    public static async restore(signing: ISigningKey, id: Id, key: IdentityKey, signature: string): Promise<SignedKey> {
-        const isSignedKey = await signing.verify(key, signature);
-        if (!isSignedKey) throw new NotSignedKeyException();
+    public static async restore(id: Id, key: IdentityKey, signature: string): Promise<SignedKey> {
         return new SignedKey(id.clone(), key.clone(), signature);
     }
 }
