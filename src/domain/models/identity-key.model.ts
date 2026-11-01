@@ -16,7 +16,7 @@ export class IdentityKey {
     }
 
     public static restore(id: Id, publicKey: string, createdAt: Date): IdentityKey {
-        return new IdentityKey(id.clone(), publicKey, createdAt);
+        return new IdentityKey(id.clone(), publicKey, new Date(createdAt));
     }
 
     public get id(): Id {
