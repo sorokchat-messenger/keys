@@ -11,8 +11,8 @@ export class IdentityKey {
         this._createdAt = createdAt;
     }
 
-    public static create(id: Id, publicKey: string): IdentityKey {
-        return new IdentityKey(id.clone(), publicKey, new Date());
+    public static create(publicKey: string): IdentityKey {
+        return new IdentityKey(Id.create(), publicKey, new Date());
     }
 
     public static restore(id: Id, publicKey: string, createdAt: Date): IdentityKey {
