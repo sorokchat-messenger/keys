@@ -37,6 +37,6 @@ export class IdentityKey {
     }
 
     public clone(): IdentityKey {
-        return new IdentityKey(this.id.clone(), this.publicKey, this.createdAt);
+        return new IdentityKey(this.id, this.publicKey, this.createdAt);
     }
 }
