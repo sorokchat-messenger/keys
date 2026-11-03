@@ -1,37 +1,40 @@
-import { NotKeyException } from "../exceptions/index.js";
 import { Entity } from "./entity.model.js";
 import { Id } from "./id.model.js";
+import { Key } from "./key.value.js";
 
 export class IdentityKey extends Entity<IdentityKey> {
-    private static readonly PATTERN: RegExp = /^[0-9a-f]{64}$/i;
-
-    private readonly _value: string;
+    private readonly _key: Key;
     private readonly _createdAt: Date;
+    private readonly _userId: Id;
 
-    private constructor(id: Id, value: string, createdAt: Date) {
+    private constructor(id: Id, userId: Id, key: Key, createdAt: Date) {
         super(id);
-        this._value = value;
+        this._userId = userId;
+        this._key = key;
         this._createdAt = createdAt;
     }
 
-    public get value(): string {
-        return this._value;
+    public get userId(): Id {
+        return this._userId.clone();
+    }
+
+    public get key(): Key {
+        return this._key.clone();
     }
 
     public get createdAt(): Date {
         return new Date(this._createdAt);
     }
 
-    public static create(value?: string | null): IdentityKey {
-        if (!value || !this.PATTERN.test(value)) throw new NotKeyException();
-        return new IdentityKey(Id.create(), value.toLowerCase(), new Date());
+    public static create(userId: Id, value?: string | null): IdentityKey {
+        return new IdentityKey(Id.create(), userId.clone(), Key.of(value), new Date());
     }
 
-    public static restore(id: Id, value: string, createdAt: Date): IdentityKey {
-        return new IdentityKey(id.clone(), value, new Date(createdAt));
+    public static restore(id: Id, userId: Id, value: string, createdAt: Date): IdentityKey {
+        return new IdentityKey(id.clone(), userId.clone(), Key.of(value), new Date(createdAt));
     }
 
     public clone(): IdentityKey {
-        return new IdentityKey(this.id, this.value, this.createdAt);
+        return new IdentityKey(this.id, this.userId, this.key, this.createdAt);
     }
 }

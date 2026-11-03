@@ -1,7 +1,8 @@
 import { uuidv7 } from "uuidv7";
 import { NotIdException } from "../exceptions/index.js";
+import { ValueObject } from "./value-object.js";
 
-export class Id {
+export class Id implements ValueObject<Id> {
     private static readonly PATTERN: RegExp = /^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 
     private readonly _value: string;

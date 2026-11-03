@@ -1,6 +1,7 @@
 import { Id } from "./id.model.js";
+import { ValueObject } from "./value-object.js";
 
-export abstract class Entity<T extends Entity<T>> {
+export abstract class Entity<T extends Entity<T>> implements ValueObject<T> {
     private readonly _id: Id;
 
     protected constructor(id: Id) {

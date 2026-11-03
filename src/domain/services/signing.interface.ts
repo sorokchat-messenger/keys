@@ -1,7 +1,7 @@
-import { type PublicKey } from "../models/index.js";
+import type { Signature, IdentityKey, Key } from "../models/index.js";
 
 export interface ISigningService {
-    verify(publicKey: PublicKey, signature: string): Promise<boolean>;
+    verify(signedKey: Key, identityKey: IdentityKey, signature: Signature): Promise<boolean>;
 }
 
 export const SIGNING_SERVICE_TOKEN: string = "SIGNING_SERVICE";
