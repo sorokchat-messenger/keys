@@ -11,9 +11,11 @@ export abstract class Entity<T extends Entity<T>> {
         return this._id.clone();
     }
 
-    public equal(other?: T | null): boolean {
+    public equal(other?: Entity<T> | null): boolean {
         if (!other) return false;
-        return other.id.equal(this.id);
+        if (this === other) return true;
+        if (this.constructor !== other.constructor) return false;
+        return other._id.equal(this._id);
     }
 
     public abstract clone(): T;
