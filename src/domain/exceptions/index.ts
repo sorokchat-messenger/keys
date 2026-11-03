@@ -4,3 +4,6 @@ export * from './not-signed-key.exception.js';
 export * from './not-key.exception.js';
 export * from './not-signature.exception.js';
 export * from './key-package-not-found.exception.js';
+export * from './identity-key-exists.exception.js';
+export * from './identity-key-not-found.exception.js';
+export * from './identity-key-mismatch.exception.js';
