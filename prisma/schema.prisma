@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model IdentityKey {
+  id          String       @id @default(uuid(7)) @map("id")
+  userId      String       @unique @map("user_id")
+  key         String       @map("key")
+  createdAt   DateTime     @default(now()) @map("created_at")
+  keyPackages KeyPackage[]
+
+  @@map("identity_keys")
+}
+
+model KeyPackage {
+  id            String      @id @default(uuid(7)) @map("id")
+  identityKey   IdentityKey @relation(fields: [identityKeyId], references: [id], onDelete: Cascade)
+  identityKeyId String      @map("identity_key_id")
+  initKey       String      @map("init_key")
+  userId        String      @map("user_id")
+  signature     String      @map("signature")
+  isLastResort  Boolean     @default(false) @map("is_last_resort")
+  createdAt     DateTime    @default(now()) @map("created_at")
+
+  @@index([userId, isLastResort])
+  @@map("key_packages")
+}
