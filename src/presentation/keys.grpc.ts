@@ -8,7 +8,7 @@ import {
     KEYS_SERVICE
 } from '@sorokchat-messenger/microservices';
 import { ConsumeKeyPackageUseCase, RegisterIdentityKeyUseCase, UploadKeyPackageUseCase } from '../application/index.js';
-import { Id, IdentityKey, KeyPackage } from '../domain/index.js';
+import { Id, IdentityKey } from '../domain/index.js';
 import { DateMapper, IdMapper, KeyMapper, SignatureMapper } from './mappers/index.js';
 
 @GrpcService(KEYS_SERVICE.NAME)
