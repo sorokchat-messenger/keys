@@ -4,10 +4,11 @@ import {
     type ConsumeKeyPackageResponse,
     type RegisterIdentityKeyRequest,
     type RegisterIdentityKeyResponse,
+    type UploadKeyPackagesRequest,
     KEYS_SERVICE
 } from '@sorokchat-messenger/microservices';
-import { ConsumeKeyPackageUseCase, RegisterIdentityKeyUseCase } from '../application/index.js';
-import { Id, IdentityKey } from '../domain/index.js';
+import { ConsumeKeyPackageUseCase, RegisterIdentityKeyUseCase, UploadKeyPackageUseCase } from '../application/index.js';
+import { Id, IdentityKey, KeyPackage } from '../domain/index.js';
 import { DateMapper, IdMapper, KeyMapper, SignatureMapper } from './mappers/index.js';
 
 @GrpcService(KEYS_SERVICE.NAME)
@@ -15,6 +16,7 @@ export class KeysGrpc {
     public constructor(
         private readonly consumeKeyPeckageUseCase: ConsumeKeyPackageUseCase,
         private readonly registerIdentityKeyUseCase: RegisterIdentityKeyUseCase,
+        private readonly uploadKeyPackageUseCase: UploadKeyPackageUseCase,
         private readonly idMapper: IdMapper,
         private readonly dateMapper: DateMapper,
         private readonly keyMapper: KeyMapper,
@@ -45,5 +47,10 @@ export class KeysGrpc {
             id: this.idMapper.toPresentation(result.id),
             userId: this.idMapper.toPresentation(result.userId)
         }
+    }
+
+    @GrpcMethod(KEYS_SERVICE.NAME, KEYS_SERVICE.UPLOAD_KEY_PACKAGES)
+    public async uploadKeyPackages(@Payload() payload: UploadKeyPackagesRequest): Promise<void> {
+        await this.uploadKeyPackageUseCase.execute(payload);
     }
 }
