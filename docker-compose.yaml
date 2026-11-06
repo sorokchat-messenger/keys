@@ -1,0 +1,16 @@
+name: sorokchat
+services:
+  keys:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sorokchat.keys
+    env_file: .env.production.local
+    networks:
+      - sorokchat
+    restart: unless-stopped
+
+networks:
+  sorokchat:
+    name: sorokchat
+  

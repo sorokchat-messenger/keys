@@ -4,6 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  schemas  = ["keys"]
 }
 
 model IdentityKey {
@@ -14,6 +15,7 @@ model IdentityKey {
   keyPackages KeyPackage[]
 
   @@map("identity_keys")
+  @@schema("keys")
 }
 
 model KeyPackage {
@@ -28,4 +30,5 @@ model KeyPackage {
 
   @@index([userId, isLastResort])
   @@map("key_packages")
+  @@schema("keys")
 }
