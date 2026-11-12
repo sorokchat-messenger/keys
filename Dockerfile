@@ -11,6 +11,8 @@ RUN --mount=type=cache,target=/root/.bun/install/cache \
 
 FROM dependencies AS builder
 COPY . .
+ARG DATABASE_CONNECTION_STRING
+ENV DATABASE_CONNECTION_STRING=$DATABASE_CONNECTION_STRING
 RUN bunx prisma generate
 RUN bun run build
 
